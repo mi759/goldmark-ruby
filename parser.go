@@ -22,6 +22,7 @@ func (s *RubyParser) Trigger() []byte {
 	return _open
 }
 
+// Parse parses a markdown ruby.
 func (p *RubyParser) Parse(_ ast.Node, block text.Reader, _ parser.Context) ast.Node {
 	line, seg := block.PeekLine()
 

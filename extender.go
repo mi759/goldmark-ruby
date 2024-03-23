@@ -13,6 +13,7 @@ type RubyExtender struct {
 // Ruby is an extension that allow you to use various ruby expressions.
 var Ruby = &RubyExtender{}
 
+// Extend implements goldmark.Extender.
 func (e *RubyExtender) Extend(m goldmark.Markdown) {
 	m.Parser().AddOptions(parser.WithInlineParsers(
 		util.Prioritized(&RubyParser{}, 500),

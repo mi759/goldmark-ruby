@@ -10,11 +10,14 @@ import (
 
 type RubyHTMLRenderer struct{}
 
+// RegisterFuncs implements renderer.NodeRenderer.RegisterFuncs.
+// It tells goldmark which render function to call when it encounters ruby nodes in the AST.
 func (r *RubyHTMLRenderer) RegisterFuncs(reg renderer.NodeRendererFuncRegisterer) {
 	reg.Register(KindRubyParent, r.RenderRubyParent)
 	reg.Register(KindRubyChild, r.RenderRubyChild)
 }
 
+// RenderRubyParent renders the provided RubyParent node.
 func (r *RubyHTMLRenderer) RenderRubyParent(w util.BufWriter, source []byte, node gast.Node, entering bool) (gast.WalkStatus, error) {
 	n, ok := node.(*RubyParent)
 	if !ok {
@@ -30,6 +33,7 @@ func (r *RubyHTMLRenderer) RenderRubyParent(w util.BufWriter, source []byte, nod
 	return gast.WalkContinue, nil
 }
 
+// RenderRubyParent renders the provided RubyChild node.
 func (r *RubyHTMLRenderer) RenderRubyChild(w util.BufWriter, source []byte, node gast.Node, entering bool) (gast.WalkStatus, error) {
 	n, ok := node.(*RubyChild)
 	if !ok {

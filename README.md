@@ -1,4 +1,5 @@
 # goldmark-ruby
+[![Go Reference](https://pkg.go.dev/badge/github.com/mi759/goldmark-ruby.svg)](https://pkg.go.dev/github.com/mi759/goldmark-ruby)
 
 goldmark-ruby is an extension for the [goldmark](https://github.com/yuin/goldmark) that parses [DenDenMarkdown](https://github.com/denshoch/DenDenMarkdown) style [rubys](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ruby) (like `{漢字|かんじ}`).
 

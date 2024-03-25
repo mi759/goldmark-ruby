@@ -2,6 +2,7 @@ package ruby
 
 import (
 	"bytes"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -19,7 +20,21 @@ func TestExtend(t *testing.T) {
 		{
 			desc: "default",
 			give: "ああ、{素晴|すば}らしき{新世界|しん|せ|かい}！",
-			want: "<p>ああ、<ruby>素晴<rt>すば</rt></ruby>らしき<ruby>新<rt>しん</rt>世<rt>せ</rt>界<rt>かい</rt></ruby>！</p>\n",
+			want: "<p>ああ、<ruby>素晴<rt>すば</rt></ruby>らしき<ruby>新<rt>しん</rt>世<rt>せ</rt>界<rt>かい</rt></ruby>！</p>",
+		},
+		{
+			desc: "no multilne",
+			give: `ああ、{素晴|
+すば\}らしき{新世界
+|しん|せ|かい}！`,
+			want: `<p>ああ、{素晴|
+すば}らしき{新世界
+|しん|せ|かい}！</p>`,
+		},
+		{
+			desc: "no formatting",
+			give: "ああ、{*素晴*|_すば_}らしき{**新世界**|しん|せ|かい}！",
+			want: "<p>ああ、<ruby>*素晴*<rt>_すば_</rt></ruby>らしき<ruby>**新世界**<rt>しん|せ|かい</rt></ruby>！</p>",
 		},
 	}
 
@@ -37,7 +52,7 @@ func TestExtend(t *testing.T) {
 			var buf bytes.Buffer
 
 			require.NoError(t, markdown.Convert([]byte(tt.give), &buf))
-			require.Equal(t, tt.want, buf.String())
+			require.Equal(t, strings.TrimSpace(tt.want), strings.TrimSpace(buf.String()))
 		})
 	}
 
